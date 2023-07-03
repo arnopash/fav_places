@@ -51,33 +51,56 @@ class _LocationInputState extends State<LocationInput> {
   }
 
   void _getCurrentLocation() async {
-    Location location = Location();
-
     bool serviceEnabled;
     PermissionStatus permissionGranted;
     LocationData locationData;
 
-    serviceEnabled = await location.serviceEnabled();
+    serviceEnabled = await isGPSEnabled();
     if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
+      serviceEnabled = await isNetworkEnabled();
       if (!serviceEnabled) {
         return;
       }
     }
 
-    permissionGranted = await location.hasPermission();
+    permissionGranted = await requestPermission();
     if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
+      permissionGranted = await requestPermission();
+      if (permissionGranted != PermissionStatus.authorizedAlways &&
+          permissionGranted != PermissionStatus.authorizedWhenInUse) {
         return;
       }
     }
+
+    // void _getCurrentLocation() async {
+    //   Location location = Location();
+
+    //   bool serviceEnabled;
+    //   PermissionStatus permissionGranted;
+    //   LocationData locationData;
+
+    //   serviceEnabled = await location.serviceEnabled();
+    //   if (!serviceEnabled) {
+    //     serviceEnabled = await location.requestService();
+    //     if (!serviceEnabled) {
+    //       return;
+    //     }
+    //   }
+
+    //   permissionGranted = await location.hasPermission();
+    //   if (permissionGranted == PermissionStatus.denied) {
+    //     permissionGranted = await location.requestPermission();
+    //     if (permissionGranted != PermissionStatus.granted) {
+    //       return;
+    //     }
+    //   }
 
     setState(() {
       _isGettingLocation = true;
     });
 
-    locationData = await location.getLocation();
+    locationData = await location
+        .getLocation(); //if I remove location, in this line, app exits when I try to get current location.
     final lat = locationData.latitude;
     final lng = locationData.longitude;
 
