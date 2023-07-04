@@ -99,8 +99,8 @@ class _LocationInputState extends State<LocationInput> {
       _isGettingLocation = true;
     });
 
-    locationData = await location
-        .getLocation(); //if I remove location, in this line, app exits when I try to get current location.
+    locationData =
+        await getLocation(); //if I remove location, in this line, app exits when I try to get current location.
     final lat = locationData.latitude;
     final lng = locationData.longitude;
 
