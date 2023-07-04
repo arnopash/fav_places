@@ -14,7 +14,7 @@ dependencies:
   google_maps_flutter: ^2.3.1
   http: ^1.1.0
   image_picker: ^0.8.9
-  location: ^4.4.0
+  location: ^5.0.0-dev.8
   path: ^1.8.3
   path_provider: ^2.0.15
   sqflite: ^2.2.8+4

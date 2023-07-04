@@ -6,7 +6,7 @@ import FlutterMacOS
 import Foundation
 
 import file_selector_macos
-import location
+import location_macos
 import path_provider_foundation
 import sqflite
 
